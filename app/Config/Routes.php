@@ -7,3 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 // $routes->get('rota', 'Controller::MétodoDoController');
 // $routes->get('/', 'Home::index');
+$routes->get('/', 'Main::index');

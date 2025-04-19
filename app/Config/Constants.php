@@ -83,3 +83,11 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125);    // highest a
 // Constants for the application [minhas constantes]
 //=========================================================
 define('APP_NAME', 'Gestor de Tarefas');
+define("STATUS_LIST", [
+    'all' => 'Tudo',
+    'new' => 'Nova',
+    'started' => 'Iniciada',
+    'paused' => 'Pausada',
+    'cancelled' => 'Cancelada',
+    'finished' => 'Finalizada',
+]);

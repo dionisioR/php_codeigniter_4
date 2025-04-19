@@ -15,12 +15,12 @@
                     <hr>
                     <div class="mb-3">
                         <label for="text_usuario" class="form-label">Usuário</label>
-                        <input type="text" class="form-control" id="text_usuario" name="text_usuario" required autofocus placeholder="Digite seu usuário">
+                        <input type="text" class="form-control" id="text_usuario" name="text_usuario" required autofocus placeholder="Digite seu usuário" value="<?= old('text_usuario','') ?>">
                         <?= !empty($validation_erros['text_usuario'])? '<p class="text-danger">'.$validation_erros['text_usuario'].'</p>':'' ?>
                     </div>
                     <div class="mb-3">
                         <label for="text_senha" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="text_senha" name="text_senha" required placeholder="Digite sua senha">
+                        <input type="password" class="form-control" id="text_senha" name="text_senha" required placeholder="Digite sua senha" value="<?= old('text_senha','') ?>">
                         <?= !empty($validation_erros['text_senha'])? '<p class="text-danger">'.$validation_erros['text_senha'].'</p>':'' ?>
 
                     </div>
@@ -29,6 +29,12 @@
                     </div>
 
                     <?= form_close() ?>
+
+                    <?php if (!empty($login_error)): ?>
+                        <div class="alert alert-danger text-center p-1">
+                            <?= $login_error ?>
+                        </div>
+                    <?php endif; ?>
 
 
                     <!-- <php if (!empty($validation_erros)): ?>

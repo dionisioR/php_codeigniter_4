@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1745067023;_ci_previous_url|s:47:"http://localhost/php_codeigniter_4/public/login";_ci_old_input|a:2:{s:3:"get";a:0:{}s:4:"post";a:2:{s:12:"text_usuario";s:3:"qqq";s:10:"text_senha";s:6:"qqqqqq";}}__ci_vars|a:2:{s:13:"_ci_old_input";s:3:"old";s:11:"login_error";s:3:"old";}login_error|s:28:"Usuário ou senha inválidos";

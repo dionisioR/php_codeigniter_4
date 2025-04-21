@@ -37,51 +37,61 @@
 
         <div class="col text-end">
             <!-- new task button -->
-            <a href="<?= site_url('new') ?>" class="btn btn-primary">
+            <a href="<?= site_url('new_task') ?>" class="btn btn-primary">
                 <i class="fa-solid fa-plus me-2"></i> Nova Tarefa
             </a>
         </div>
     </div>
 </section>
 
+<?php if (count($tasks) > 0): ?>
 
-<section class="container mt-3">
-    <div class="row">
-        <div class="col">
-            <h3>Tarefas</h3>
+    <section class="container mt-3">
+        <div class="row">
+            <div class="col">
+                <h3>Tarefas</h3>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th width="50%">Tarefas</th>
+                            <th width="25%" class="text-center">Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php foreach ($tasks as $task): ?>
+                            <tr>
+                                <td><?= $task->task_name ?></td>
+                                <td class="text-center"><?= STATUS_LIST[$task->task_status] ?></td>
+
+                                <td class="text-end">
+                                    <a href="<?= site_url('edit_task/' . $task->id) ?>" class="btn btn-secondary btn-sm me-2">
+                                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                                    </a>
+                                    <a href="<?= site_url('delete_task/' . $task->id) ?>" class="btn btn-danger btn-sm">
+                                        <i class="fa-solid fa-trash"></i> Excluir
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="container mt-3">
-    <div class="row">
-        <div class="col">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Tarefas</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>A</td>
-                        <td>B</td>
-                        <td>C</td>
-                    </tr>
-                </tbody>
-            </table>
+<?php else: ?>
+
+    <section class="container mt-3">
+        <div class="row">
+            <div class="col text-center">
+                <p>Não há tarefas cadastradas</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
+<?php endif; ?>
 
-<section class="container mt-3">
-    <div class="row">
-        <div class="col text-center">
-            <p>Não há tarefas cadastradas</p>
-        </div>
-    </div>
-</section>
 <?= $this->endSection() ?>

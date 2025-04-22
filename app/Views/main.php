@@ -20,18 +20,16 @@
 
         <div class="col">
             <!-- status filter -->
-            <?= form_open('filter') ?>
             <div class="d-flex mb-3 align-items-center">
                 <label class="me-3">Status:</label>
                 <select name="select_status" class="form-select w-50">
 
                     <?php foreach (STATUS_LIST as $key => $value): ?>
-                        <option value="<?= $key ?>"><?= $value ?></option>
+                        <option value="<?= $key ?>" <?= check_status($key, !empty($status) ? $status : '') ?>><?= $value ?></option>
                     <?php endforeach; ?>
 
                 </select>
             </div>
-            <? form_close() ?>
         </div>
 
 
@@ -50,11 +48,11 @@
         <div class="row">
             <div class="col">
                 <h3>Tarefas</h3>
-                <table class="table table-striped table-hover">
-                    <thead>
+                <table class="table table-striped table-hover table-bordered" id="table_tasks">
+                    <thead class="table-secondary">
                         <tr>
-                            <th width="50%">Tarefas</th>
-                            <th width="25%" class="text-center">Status</th>
+                            <th width="60%">Tarefas</th>
+                            <th width="20%" class="text-center">Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -66,10 +64,10 @@
                                 <td class="text-center"><?= STATUS_LIST[$task->task_status] ?></td>
 
                                 <td class="text-end">
-                                    <a href="<?= site_url('edit_task/' . $task->id) ?>" class="btn btn-secondary btn-sm me-2">
+                                    <a href="<?= site_url('edit_task/' . encrypt($task->id)) ?>" class="btn btn-secondary btn-sm me-2">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar
                                     </a>
-                                    <a href="<?= site_url('delete_task/' . $task->id) ?>" class="btn btn-danger btn-sm">
+                                    <a href="<?= site_url('delete_task/' . encrypt($task->id))  ?>" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash"></i> Excluir
                                     </a>
                                 </td>
@@ -93,5 +91,44 @@
     </section>
 
 <?php endif; ?>
+
+
+
+<!-- datatables -->
+<script>
+    $(document).ready(function() {
+        $('#table_tasks').DataTable({
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "Nada encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                "search": "Pesquisar:",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Próximo",
+                    "previous": "Anterior"
+                },
+            }
+        });
+    });
+
+    // filter change
+    document.querySelector('select[name="select_status"]').addEventListener('change', (e) => {
+        console.log('teste');
+        let status = e.target.value;
+        window.location.href = `<?= site_url('filter') ?>/${status}`;
+    })
+
+
+    // filter change
+    document.querySelector('select[name="select_status"]').addEventListener('change', (e) => {
+        let status = e.target.value;
+        window.location.href = `<?= site_url('filter') ?>/${status}`;
+    })
+
+</script>
 
 <?= $this->endSection() ?>

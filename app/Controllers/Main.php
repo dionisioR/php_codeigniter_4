@@ -43,7 +43,7 @@ class Main extends BaseController
         // load task from database and the user in session
         $task_model = new TasksModel();
         $data['tasks'] = $task_model->where('id_user', session()->id)->findAll();
-        
+        $data['datatables'] = true; // load datatables
         return view('main', $data);
     }
 
@@ -156,7 +156,7 @@ class Main extends BaseController
         if ($validation_errors) {
             $data['validation_errors'] = $validation_errors;
         }
-        
+
         return view('new_task_frm', $data);
     }
 
@@ -199,10 +199,77 @@ class Main extends BaseController
             'task_description' => $descricao,
             'task_status' => 'new'
         ]);
-
-
         // redirect to home page
         return redirect()->to('/');
+    }
+
+    public function search()
+    {
+        $data = [];
+
+        // get search items
+        $search_term = $this->request->getPost('text_search');
+
+        // load tasks from database and the search term
+        $task_model = new TasksModel();
+        $data['tasks'] = $task_model->where('id_user', session()->id)->like('task_name', $search_term)->findAll();
+        $data['datatables'] = true;
+
+        return view('main', $data);
+    }
+
+    public function filter($status)
+    {
+        $data = [];
+
+        // load tasks from database and the status
+        $task_model = new TasksModel();
+
+        if ($status == 'all') {
+            $data['tasks'] = $task_model->where('id_user', session()->id)->findAll();
+        } else {
+            $data['tasks'] = $task_model->where('id_user', session()->id)->where('task_status', $status)->findAll();
+        }
+
+        $data['datatables'] = true;
+        $data['status'] = $status;
+
+        return view('main', $data);
+    }
+
+    public function edit_task($enc_id)
+    {
+        $task_id = decrypt($enc_id);
+        if (!$task_id) {
+            return redirect()->to('/');
+        }
+
+        $data = [];
+
+        // check for validation errors
+        $validation_errors = session()->getFlashdata('validation_errors');
+        if ($validation_errors) {
+            $data['validation_errors'] = $validation_errors;
+        }
+
+        // load task data
+        $task_model = new TasksModel();
+        $task_data = $task_model->where('id', $task_id)->first();
+        if (!$task_data) {
+            return redirect()->to('/');
+        }
+
+        // check if task belongs to the user in the session
+        if ($task_data->id_user != session()->id) {
+            return redirect()->to('/');
+        }
+
+        $data['task'] = $task_data;
+        return view('edit_task_frm', $data);
+    }
+
+    public function edit_task_submit(){
+        echo "AQUI";
     }
 
     public function sessao()

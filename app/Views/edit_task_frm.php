@@ -6,7 +6,7 @@
         <div class="col">
             <h3>Editar Tarefa</h3>
             <hr>
-            <?= form_open('edit_task_submit', ['novalidate' => true]) ?>
+            <?= form_open('edit_task_submit') ?>
             <!-- task id encrypted -->
             <input type="hidden" name="hidden_id" value="<?= encrypt($task->id) ?>">
 

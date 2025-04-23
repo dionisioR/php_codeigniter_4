@@ -50,6 +50,11 @@ class Main extends BaseController
 
     public function login()
     {
+        // check if ther is an active session
+        if (session()->has('id')) {
+            return redirect()->to('/');
+        }
+        
         $data = [];
         // verifica se existe algum erro de validação
         $validation_errors = session()->getFlashdata('validation_erros');
@@ -400,10 +405,30 @@ class Main extends BaseController
         return redirect()->to('/');
     }
 
-    public function sessao()
-    {
-        echo "<pre>";
-        print_r(session()->get());
-        echo "</pre>";
+    public function task_details($enc_id){
+        
+        // decrypt task id
+        $task_id = decrypt($enc_id);
+        if (!$task_id) {
+            return redirect()->to('/');
+        }
+
+        // load task data
+        $tasks_model = new TasksModel();
+        $task_data = $tasks_model->where('id', $task_id)->first();
+        if (!$task_data) {
+            return redirect()->to('/');
+        }
+
+        // check if the task belongs to the user in session
+        if ($task_data->id_user != session()->id) {
+            return redirect()->to('/');
+        }
+
+        // display task with question if it is to delete or not delete
+        $data['task'] = $task_data;
+        return view('task_details', $data);
     }
+
+
 }

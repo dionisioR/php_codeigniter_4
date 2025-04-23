@@ -60,8 +60,20 @@
 
                         <?php foreach ($tasks as $task): ?>
                             <tr>
-                                <td><?= $task->task_name ?></td>
-                                <td class="text-center"><?= STATUS_LIST[$task->task_status] ?></td>
+                                <td>
+                                    <a href="<?= site_url('task_details/' . encrypt($task->id)) ?>" class="text-decoration-none">
+                                        <?= $task->task_name ?>
+                                    </a>
+                                    <br>
+                                    <small class="opacity-50">
+                                        <?= $task->task_description ?>
+                                    </small>
+                                </td>
+                                <td class="text-center">
+
+                                    <?= STATUS_LIST[$task->task_status] ?>
+
+                                </td>
 
                                 <td class="text-end">
                                     <a href="<?= site_url('edit_task/' . encrypt($task->id)) ?>" class="btn btn-secondary btn-sm me-2">
@@ -128,7 +140,6 @@
         let status = e.target.value;
         window.location.href = `<?= site_url('filter') ?>/${status}`;
     })
-
 </script>
 
 <?= $this->endSection() ?>

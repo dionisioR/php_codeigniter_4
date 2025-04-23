@@ -28,5 +28,6 @@ $routes->post('/edit_task_submit', 'Main::edit_task_submit');
 $routes->get('/delete_task/(:alphanum)', 'Main::delete_task/$1');
 $routes->get('/delete_task_confirm/(:alphanum)', 'Main::delete_task_confirm/$1');
 
-// temp
-$routes->get('/sessao', 'Main::sessao');
+// task details
+$routes->get('/task_details/(:alphanum)', 'Main::task_details/$1');
+

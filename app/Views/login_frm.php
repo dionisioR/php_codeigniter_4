@@ -9,7 +9,7 @@
             <div class="col-12 col-md-6 col-sm-8 col-lg-4">
                 <div class="card bg-light text-dark rouded-3 p-5">
 
-                    <?= form_open('login_submit', ['novalidate' => true]) ?>
+                    <?= form_open('login_submit') ?>
 
                     <h3 class="text-center">Login</h3>
                     <hr>

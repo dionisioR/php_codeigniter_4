@@ -24,5 +24,9 @@ $routes->get('/filter/(:alpha)', 'Main::filter/$1');
 $routes->get('/edit_task/(:alphanum)', 'Main::edit_task/$1');
 $routes->post('/edit_task_submit', 'Main::edit_task_submit');
 
+// delete task
+$routes->get('/delete_task/(:alphanum)', 'Main::delete_task/$1');
+$routes->get('/delete_task_confirm/(:alphanum)', 'Main::delete_task_confirm/$1');
+
 // temp
 $routes->get('/sessao', 'Main::sessao');

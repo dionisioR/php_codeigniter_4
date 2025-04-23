@@ -8,7 +8,7 @@
             <hr>
             <?= form_open('edit_task_submit', ['novalidate' => true]) ?>
             <!-- task id encrypted -->
-            <input type="hidden" name="task_id" value="<?= encrypt($task->id) ?>">
+            <input type="hidden" name="hidden_id" value="<?= encrypt($task->id) ?>">
 
 
             <div class="mb-3">
